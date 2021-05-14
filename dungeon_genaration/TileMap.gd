@@ -132,6 +132,7 @@ func connect_with_tiles_vh(start,finish,tile):
 		else:
 			start.x -= get_naturality(start.x - finish.x)
 		set_cellv(start,tile)
+
 func _process(delta):
 	
 	pass
