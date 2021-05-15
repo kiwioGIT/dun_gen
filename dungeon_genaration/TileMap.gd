@@ -9,7 +9,7 @@ extends TileMap
 onready var LIGHT = preload("res://Light2D.tscn")
 var mids = []
 var red_mids = []
-var room_amount = 200
+var room_amount = 25
 var room_max_size = 15
 var room_min_size = 5
 var room_max_pos_x = 80
@@ -59,12 +59,8 @@ func _ready():
 	var mid_to_turn_red = int(rand_range(0,room_amount))
 	set_cellv(mids[mid_to_turn_red],1)
 	set_blue_mids()
-	for i in 10:
-		delete_badly_placed_tiles()
 	while(blue_mids.size() > 0):
 		connect_closest_pieces()
-	for i in 10:
-		post_delete_badly_placed_tiles()
 	change_to_stone()
 	place_light()
 
