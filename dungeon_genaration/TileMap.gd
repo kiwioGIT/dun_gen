@@ -8,7 +8,7 @@ extends TileMap
 #var closest_vec
 var mids = []
 var red_mids = []
-var room_amount = 100
+var room_amount = 24
 var room_max_size = 15
 var room_min_size = 5
 var room_max_pos_x = 80
@@ -21,26 +21,32 @@ func _ready():
 	for i in room_amount:
 		randomize()
 		var yadition = 0
+		var xadition = 0
+		var plus_minus = get_naturality(rand_range(-10,10))
+		var h_or_v = get_naturality(rand_range(-10,10))
 		var iscoliding = true
 		var sizex = int(rand_range(room_min_size,room_max_size))
 		var sizey = int(rand_range(room_min_size,room_max_size))
 		var posx = int(rand_range(-room_max_pos_x,room_max_pos_x))
 		var posy = int(rand_range(-room_max_pos_y,room_max_pos_y))
 		while(iscoliding):
-			for x in sizex+2:
-				for y in sizey+2:
+			for x in sizex+4:
+				for y in sizey+4:
 					iscoliding = false
-					if get_cellv(Vector2(posx+x-1,posy+y+yadition-1))==0:
+					if get_cellv(Vector2(posx+x+xadition,posy+y+yadition))==0:
 						iscoliding = true
-						yadition += 2
+						if h_or_v == 1:
+							xadition += 2*plus_minus
+						else:
+							yadition += 2*plus_minus
 		for x in sizex:
 			for y in sizey:
-				if get_cellv(Vector2(posx+x,posy+y+yadition))==-1:
-					set_cellv(Vector2(posx+x,posy+y+yadition),0)
+				if get_cellv(Vector2(posx+x+xadition+2,posy+y+yadition+2))==-1:
+					set_cellv(Vector2(posx+x+xadition+2,posy+y+yadition+2),0)
 				else:
-					set_cellv(Vector2(posx+x,posy+y+yadition),0)
+					set_cellv(Vector2(posx+x+xadition,posy+y+yadition),0)
 				if posx+x == posx+int(sizex/2) and posy+y == posy+int(sizey/2):
-					mids.append(Vector2(posx+x,posy+y+yadition))
+					mids.append(Vector2(posx+x+xadition+2,posy+y+yadition+2))
 		print("y add ",yadition)
 
 	print(mids)
