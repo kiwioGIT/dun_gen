@@ -99,48 +99,7 @@ func connect_with_tiles(start,finish,tile):
 		connect_with_tiles_vh(start,finish,tile)
 
 
-func delete_badly_placed_tiles():
-	var curent_check = Vector2(-room_max_pos_x*2,-room_max_pos_y*2)
-	for ch in room_max_pos_x*room_max_pos_y*16:
-		var spaces_around = 0
-		if get_cellv(Vector2(curent_check.x-1,curent_check.y)) == 0 and get_cellv(Vector2(curent_check.x,curent_check.y-1)) == 0 and get_cellv(Vector2(curent_check.x-1,curent_check.y-1)) == -1:
-			set_cellv(Vector2(curent_check.x-1,curent_check.y),-1)
-			
-		if get_cellv(Vector2(curent_check.x+1,curent_check.y)) == 0 and get_cellv(Vector2(curent_check.x,curent_check.y-1)) == 0 and get_cellv(Vector2(curent_check.x+1,curent_check.y-1)) == -1:
-			set_cellv(Vector2(curent_check.x+1,curent_check.y),-1)
-			
-		if get_cellv(Vector2(curent_check.x-1,curent_check.y)) == 0 and get_cellv(Vector2(curent_check.x,curent_check.y+1)) == 0 and get_cellv(Vector2(curent_check.x-1,curent_check.y+1)) == -1:
-			set_cellv(Vector2(curent_check.x-1,curent_check.y),-1)
-			
-		if get_cellv(Vector2(curent_check.x+1,curent_check.y)) == 0 and get_cellv(Vector2(curent_check.x,curent_check.y+1)) == 0 and get_cellv(Vector2(curent_check.x+1,curent_check.y+1)) == -1:
-			set_cellv(Vector2(curent_check.x+1,curent_check.y),-1)
-		
-		if get_cellv(Vector2(curent_check.x+1,curent_check.y))==-1:
-			spaces_around+=1
-		if get_cellv(Vector2(curent_check.x-1,curent_check.y))==-1:
-			spaces_around+=1
-		if get_cellv(Vector2(curent_check.x,curent_check.y+1))==-1:
-			spaces_around+=1
-		if get_cellv(Vector2(curent_check.x,curent_check.y-1))==-1:
-			spaces_around+=1
-		if spaces_around >= 3:
-			 set_cellv(curent_check,-1)
 
-func post_delete_badly_placed_tiles():
-	var curent_check = Vector2(-room_max_pos_x*2,-room_max_pos_y*2)
-	for ch in room_max_pos_x*room_max_pos_y*16:
-		var spaces_around = 0
-		
-		if get_cellv(Vector2(curent_check.x+1,curent_check.y))==-1:
-			spaces_around+=1
-		if get_cellv(Vector2(curent_check.x-1,curent_check.y))==-1:
-			spaces_around+=1
-		if get_cellv(Vector2(curent_check.x,curent_check.y+1))==-1:
-			spaces_around+=1
-		if get_cellv(Vector2(curent_check.x,curent_check.y-1))==-1:
-			spaces_around+=1
-		if spaces_around >= 3:
-			 set_cellv(curent_check,-1)
 
 func connect_closest_pieces():
 	fill_red()
