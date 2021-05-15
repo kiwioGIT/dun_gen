@@ -6,15 +6,16 @@ extends TileMap
 # var b = "text"
 #var closest_dist
 #var closest_vec
+onready var LIGHT = preload("res://Light2D.tscn")
 var mids = []
 var red_mids = []
-var room_amount = 24
+var room_amount = 200
 var room_max_size = 15
 var room_min_size = 5
 var room_max_pos_x = 80
 var room_max_pos_y = 50
 var blue_mids = []
-
+var spacing = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,30 +25,35 @@ func _ready():
 		var xadition = 0
 		var plus_minus = get_naturality(rand_range(-10,10))
 		var h_or_v = get_naturality(rand_range(-10,10))
+		print(h_or_v,plus_minus)
 		var iscoliding = true
 		var sizex = int(rand_range(room_min_size,room_max_size))
 		var sizey = int(rand_range(room_min_size,room_max_size))
 		var posx = int(rand_range(-room_max_pos_x,room_max_pos_x))
 		var posy = int(rand_range(-room_max_pos_y,room_max_pos_y))
+		var iscoliding2 = true
 		while(iscoliding):
-			for x in sizex+4:
-				for y in sizey+4:
-					iscoliding = false
-					if get_cellv(Vector2(posx+x+xadition,posy+y+yadition))==0:
-						iscoliding = true
+			var sizex2 = sizex+2*spacing
+			var sizey2 = sizey+2*spacing
+			iscoliding2 = false
+			for x in sizex2:
+				for y in sizey2:
+					if get_cellv(Vector2(posx+x+xadition-spacing,posy+y+yadition-spacing))==0:
+						iscoliding2 = true
 						if h_or_v == 1:
-							xadition += 2*plus_minus
+							xadition += plus_minus
 						else:
-							yadition += 2*plus_minus
+							yadition += plus_minus
+			iscoliding = iscoliding2
 		for x in sizex:
 			for y in sizey:
-				if get_cellv(Vector2(posx+x+xadition+2,posy+y+yadition+2))==-1:
-					set_cellv(Vector2(posx+x+xadition+2,posy+y+yadition+2),0)
+				if get_cellv(Vector2(posx+x+xadition,posy+y+yadition))==-1:
+					set_cellv(Vector2(posx+x+xadition,posy+y+yadition),0)
 				else:
 					set_cellv(Vector2(posx+x+xadition,posy+y+yadition),0)
 				if posx+x == posx+int(sizex/2) and posy+y == posy+int(sizey/2):
-					mids.append(Vector2(posx+x+xadition+2,posy+y+yadition+2))
-		print("y add ",yadition)
+					mids.append(Vector2(posx+x+xadition,posy+y+yadition))
+		print(i," y add ",yadition," x add ",xadition)
 
 	print(mids)
 	var mid_to_turn_red = int(rand_range(0,room_amount))
@@ -59,6 +65,24 @@ func _ready():
 		connect_closest_pieces()
 	for i in 10:
 		post_delete_badly_placed_tiles()
+	change_to_stone()
+	place_light()
+
+func change_to_stone():
+	var curent_stone_check = Vector2(room_max_pos_x*2,room_max_pos_y*2)
+	for ch in room_max_pos_x*room_max_pos_y*16:
+		if get_cellv(curent_stone_check)==-1 and (get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y))==1 or get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y))==1 or get_cellv(Vector2(curent_stone_check.x,curent_stone_check.y-1))==1 or get_cellv(Vector2(curent_stone_check.x,curent_stone_check.y+1)) == 1 or get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y+1)) == 1 or get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y-1)) == 1 or get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y+1)) == 1 or get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y-1)) ==1 ):
+			set_cellv(curent_stone_check,4)
+		curent_stone_check.x -= 1
+		if curent_stone_check.x < -room_max_pos_x*2:
+			curent_stone_check.x = room_max_pos_x*2
+			curent_stone_check.y -= 1
+
+func place_light():
+	for m in mids:
+		var new_light = LIGHT.instance()
+		new_light.position = m*64
+		add_child(new_light)
 
 
 func fill_red_from_bot():
