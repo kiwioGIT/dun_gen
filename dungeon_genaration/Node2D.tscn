@@ -112,3 +112,16 @@ margin_bottom = 1554.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 668.044
+margin_top = 541.426
+margin_right = 917.044
+margin_bottom = 649.426
+rect_scale = Vector2( 1.97546, 3.96851 )
+text = "G to generate new dungeon"
+__meta__ = {
+"_edit_use_anchors_": false
+}

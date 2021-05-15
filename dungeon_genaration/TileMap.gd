@@ -19,6 +19,12 @@ var spacing = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	pass
+
+
+
+
+func generate_new_dungeon():
 	for i in room_amount:
 		randomize()
 		var yadition = 0
@@ -64,6 +70,8 @@ func _ready():
 	change_to_stone()
 	place_light()
 
+
+
 func change_to_stone():
 	var curent_stone_check = Vector2(room_max_pos_x*2,room_max_pos_y*2)
 	for ch in room_max_pos_x*room_max_pos_y*16:
@@ -97,9 +105,6 @@ func connect_with_tiles(start,finish,tile):
 		connect_with_tiles_hv(start,finish,tile)
 	else:
 		connect_with_tiles_vh(start,finish,tile)
-
-
-
 
 func connect_closest_pieces():
 	fill_red()
@@ -186,5 +191,10 @@ func connect_with_tiles_vh(start,finish,tile):
 		set_cellv(start,tile)
 
 func _process(delta):
-	
+	if Input.is_action_just_pressed("g"):
+		clear()
+		var mids = []
+		var red_mids = []
+		var blue_mids = []
+		generate_new_dungeon()
 	pass
