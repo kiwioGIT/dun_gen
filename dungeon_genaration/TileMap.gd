@@ -59,9 +59,6 @@ func generate_new_dungeon():
 					set_cellv(Vector2(posx+x+xadition,posy+y+yadition),0)
 				if posx+x == posx+int(sizex/2) and posy+y == posy+int(sizey/2):
 					mids.append(Vector2(posx+x+xadition,posy+y+yadition))
-		print(i," y add ",yadition," x add ",xadition)
-
-	print(mids)
 	var mid_to_turn_red = int(rand_range(0,room_amount))
 	set_cellv(mids[mid_to_turn_red],1)
 	set_blue_mids()
@@ -69,6 +66,7 @@ func generate_new_dungeon():
 		connect_closest_pieces()
 	change_to_stone()
 	place_light()
+	get_parent().get_node("p").position = mids[mid_to_turn_red]*64
 
 
 
