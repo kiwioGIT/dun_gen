@@ -9,7 +9,7 @@ extends TileMap
 onready var LIGHT = preload("res://Light2D.tscn")
 var mids = []
 var red_mids = []
-var room_amount = 25
+var room_amount = 20
 var room_max_size = 15
 var room_min_size = 5
 var room_max_pos_x = 80
@@ -66,15 +66,32 @@ func generate_new_dungeon():
 		connect_closest_pieces()
 	change_to_stone()
 	place_light()
-	get_parent().get_node("p").position = mids[mid_to_turn_red]*64
+	get_parent().get_node("p").position = mids[mid_to_turn_red]*16
 
 
 
 func change_to_stone():
 	var curent_stone_check = Vector2(room_max_pos_x*2,room_max_pos_y*2)
 	for ch in room_max_pos_x*room_max_pos_y*16:
-		if get_cellv(curent_stone_check)==-1 and (get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y))==1 or get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y))==1 or get_cellv(Vector2(curent_stone_check.x,curent_stone_check.y-1))==1 or get_cellv(Vector2(curent_stone_check.x,curent_stone_check.y+1)) == 1 or get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y+1)) == 1 or get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y-1)) == 1 or get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y+1)) == 1 or get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y-1)) ==1 ):
+		if get_cellv(curent_stone_check)==-1 and get_cellv(Vector2(curent_stone_check.x,curent_stone_check.y+1))==1:
 			set_cellv(curent_stone_check,4)
+			if get_cellv(Vector2(curent_stone_check.x,curent_stone_check.y-1))==-1:
+				set_cellv(Vector2(curent_stone_check.x,curent_stone_check.y-1),5)
+		if get_cellv(curent_stone_check)==-1 and get_cellv(Vector2(curent_stone_check.x,curent_stone_check.y-1))==1:
+			set_cellv(curent_stone_check,6)
+		if get_cellv(curent_stone_check)==-1 and (get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y))==1):
+			set_cellv(curent_stone_check,10)
+		if get_cellv(curent_stone_check)==-1 and (get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y))==1):
+			set_cellv(curent_stone_check,11)
+		if get_cellv(curent_stone_check)==6 and (get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y))==1):
+			set_cellv(curent_stone_check,12)
+		if get_cellv(curent_stone_check)==6 and (get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y))==1):
+			set_cellv(curent_stone_check,13)
+		if get_cellv(curent_stone_check)==5 and (get_cellv(Vector2(curent_stone_check.x+1,curent_stone_check.y))==1):
+			set_cellv(curent_stone_check,14)
+		if get_cellv(curent_stone_check)==5 and (get_cellv(Vector2(curent_stone_check.x-1,curent_stone_check.y))==1):
+			set_cellv(curent_stone_check,15)
+
 		curent_stone_check.x -= 1
 		if curent_stone_check.x < -room_max_pos_x*2:
 			curent_stone_check.x = room_max_pos_x*2
@@ -83,7 +100,7 @@ func change_to_stone():
 func place_light():
 	for m in mids:
 		var new_light = LIGHT.instance()
-		new_light.position = m*64
+		new_light.position = m*16
 		add_child(new_light)
 
 
@@ -195,4 +212,6 @@ func _process(delta):
 		var red_mids = []
 		var blue_mids = []
 		generate_new_dungeon()
+	if Input.is_action_just_pressed("f"):
+		print(get_cellv(get_parent().get_node("p").position/16+Vector2(1,-1)))
 	pass

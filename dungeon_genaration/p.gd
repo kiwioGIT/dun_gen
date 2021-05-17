@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-const accel = 5000
-const mxspeed = 400
-const frict = 5000
+const accel = 1500
+const mxspeed = 100
+const frict = 1500
 var motion = Vector2.ZERO
 var side = true
 # Declare member variables here. Examples:

@@ -1,0 +1,84 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://buuuet.png" type="Texture" id=1]
+[ext_resource path="res://ui.gd" type="Script" id=2]
+[ext_resource path="res://reloadicon/reloadicon5.png" type="Texture" id=3]
+[ext_resource path="res://reloadicon/reloadicon6.png" type="Texture" id=4]
+[ext_resource path="res://reloadicon/reloadicon3.png" type="Texture" id=5]
+[ext_resource path="res://reloadicon/reloadicon7.png" type="Texture" id=6]
+[ext_resource path="res://reloadicon/reloadicon4.png" type="Texture" id=7]
+[ext_resource path="res://reloadicon/reloadicon1.png" type="Texture" id=8]
+[ext_resource path="res://reloadicon/reloadicon2.png" type="Texture" id=9]
+[ext_resource path="res://reloadicon/reloadicon8.png" type="Texture" id=10]
+[ext_resource path="res://Cave-Story.ttf" type="DynamicFontData" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "roll",
+"speed": 16.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 11 )
+
+[node name="Control" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="buuuet" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 969.958, 565 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 1 )
+
+[node name="buuuet2" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 969.958, 530 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 1 )
+
+[node name="buuuet3" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 969.958, 495 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 1 )
+
+[node name="buuuet4" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 969.958, 460 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 1 )
+
+[node name="buuuet5" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 969.958, 425 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 1 )
+
+[node name="buuuet6" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 969.958, 390 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 1 )
+
+[node name="reloadicon" type="AnimatedSprite" parent="CanvasLayer"]
+position = Vector2( 893.469, 550.251 )
+scale = Vector2( 6, 6 )
+frames = SubResource( 1 )
+animation = "roll"
+frame = 4
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_left = 810.334
+margin_top = 15.3383
+margin_right = 1004.33
+margin_bottom = 40.3383
+custom_fonts/font = SubResource( 2 )
+text = "AMMO 34/100"
+__meta__ = {
+"_edit_use_anchors_": false
+}

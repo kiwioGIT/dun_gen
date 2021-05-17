@@ -3,6 +3,7 @@
 [ext_resource path="res://lighttextur3.png" type="Texture" id=1]
 
 [node name="Light2D" type="Light2D"]
+visible = false
 position = Vector2( 185.302, 252.777 )
 texture = ExtResource( 1 )
 texture_scale = 9.09
